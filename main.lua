@@ -85,7 +85,7 @@ end
 function step()
     local step = getNextStep()
 
-    while not bouncsCheckStep(step) do step = getNextStep() end
+    while not boundsCheckStep(step) do step = getNextStep() end
 
     drawStep(lastStep, color)
     drawStep(step, walkColor)
@@ -111,7 +111,7 @@ function getNextStep()
     return step
 end
 
-function bouncsCheckStep(step)
+function boundsCheckStep(step)
     if step.x < 0 then
         return false
     elseif step.x > gridX then

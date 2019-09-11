@@ -2,7 +2,7 @@
 
 Demo of random walk procedural generation with [Love2d](https://love2d.org)
 
-http://pcg.wikidot.com/pcg-algorithm:drunkard-walk
+[Drunkard's Walk Algorithm](http://pcg.wikidot.com/pcg-algorithm:drunkard-walk)
 
 ![Random Walk Algorithm](random-walk.gif?raw=true "Random Walk")
 

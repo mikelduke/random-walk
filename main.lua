@@ -1,4 +1,4 @@
-updateFreq = 0
+stepsPerSec = 60
 updateDiff = 0
 iterations = 0
 maxIterations = 500
@@ -11,17 +11,21 @@ scaleY = love.graphics.getHeight() / gridY
 lastStep = {x = 0, y = 0}
 color = {r = 1, g = 1, b = 1}
 walkColor = {r = 0, g = 1, b = 0}
+lt = 0
 
 function love.load() reset() end
 
 function love.update(dt)
     if iterations > maxIterations then reset() end
+    lt = lt + dt
 
-    -- TODO change from timer update to squares per sec or min
-    updateDiff = updateDiff + dt
-    if (updateDiff > updateFreq) then
-        updateDiff = 0
-        step()
+    local numSteps = stepsPerSec * lt
+    if numSteps >= 1 then
+        lt = 0
+        
+        for i = 0, numSteps do
+            step()
+        end
     end
 end
 
@@ -34,7 +38,7 @@ function love.draw()
         love.graphics.setColor(1, 1, 1)
         love.graphics.print("DT: " .. tostring(love.timer.getDelta()), 10, 10)
         love.graphics.print("FPS: " .. tostring(love.timer.getFPS()), 10, 20)
-        love.graphics.print("updateFreq: " .. tostring(updateFreq), 10, 30)
+        love.graphics.print("stepsPerSec: " .. tostring(stepsPerSec), 10, 30)
         love.graphics.print("step: " .. tostring(lastStep.x) .. ", " ..
                                 tostring(lastStep.y), 10, 40)
         love.graphics.print("iterations: " .. tostring(iterations) .. " of " .. maxIterations, 10, 50)
@@ -47,10 +51,10 @@ function love.keypressed(key, scancode, isrepeat)
     if key == 'escape' then
         love.event.push('quit')
     elseif key == 'up' then
-        updateFreq = updateFreq + .1
+        stepsPerSec = stepsPerSec + 5
     elseif key == 'down' then
-        updateFreq = updateFreq - .1
-        if updateFreq < 0 then updateFreq = 0 end
+        stepsPerSec = stepsPerSec - 5
+        if stepsPerSec < 0 then stepsPerSec = 0 end
     elseif key == 'left' then
         maxIterations = maxIterations - 100
         if maxIterations < 100 then maxIterations = 100 end

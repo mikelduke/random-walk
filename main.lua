@@ -22,7 +22,7 @@ function love.update(dt)
     local numSteps = stepsPerSec * lt
     if numSteps >= 1 then
         lt = 0
-        
+
         for i = 0, numSteps do
             step()
         end
@@ -118,11 +118,11 @@ end
 function boundsCheckStep(step)
     if step.x < 0 then
         return false
-    elseif step.x > gridX then
+    elseif step.x >= gridX then
         return false
     elseif step.y < 0 then
         return false
-    elseif step.y > gridY then
+    elseif step.y >= gridY then
         return false
     else
         return true

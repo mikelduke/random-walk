@@ -23,7 +23,7 @@ function love.update(dt)
     if numSteps >= 1 then
         lt = 0
 
-        for i = 0, numSteps do
+        for i = 1, math.floor(numSteps) do
             step()
         end
     end
